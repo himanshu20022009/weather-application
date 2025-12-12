@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>24-hour Forecast</title>
+
+    <!-- Small inline CSS so the page is readable even if external CSS fails -->
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            margin: 0;
+            height: 100vh;
+            /* 🔒 exactly one screen high */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* center the card */
+            background: linear-gradient(to right, #222, #111);
+            color: #fff;
+            overflow: hidden;
+            /* ✅ stop vertical elongation / scrolling */
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 700px;
+            background: #1c1c1c;
+            border-radius: 16px;
+            padding: 18px 22px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            max-height: 90vh;
+            /* keep card inside screen */
+        }
+        
+        h1 {
+            text-align: center;
+            margin: 0 0 12px 0;
+            font-size: 1.4rem;
+        }
+        
+        form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        form input[type="text"] {
+            flex: 1;
+            padding: 8px 10px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+        }
+        
+        form input[type="submit"] {
+            padding: 8px 14px;
+            border-radius: 8px;
+            border: none;
+            background: #ff4081;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        #cityLabel,
+        #statusMessage,
+        #forecastMessage {
+            margin: 4px 0;
+            font-size: 0.9rem;
+        }
+        
+        .chart-wrapper {
+            margin-top: 8px;
+            background: #111;
+            border-radius: 12px;
+            padding: 10px;
+            flex: 1;
+            /* take remaining vertical space */
+            min-height: 180px;
+            max-height: 260px;
+            /* 🔒 chart area max height */
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chart-wrapper h2 {
+            margin: 0 0 6px 0;
+            font-size: 0.95rem;
+            color: #ffeb3b;
+        }
+        /* canvas always stays inside fixed box */
+        
+        #forecastChart {
+            flex: 1;
+            width: 100% !important;
+            height: 100% !important;
+        }
+        
+        .back-btn {
+            margin-top: 10px;
+            padding: 7px 12px;
+            border-radius: 8px;
+            border: none;
+            background: #ff4081;
+            color: #fff;
+            cursor: pointer;
+            font-weight: bold;
+            align-self: flex-start;
+            font-size: 0.9rem;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div class="container">
+        <h1>24-hour Forecast</h1>
+
+        <!-- City form just for forecast page -->
+        <form id="forecast-form">
+            <input id="forecast-city" type="text" placeholder="Enter city name for forecast" />
+            <input type="submit" value="Get forecast" />
+        </form>
+
+        <p id="cityLabel"></p>
+        <p id="statusMessage"></p>
+
+        <div class="chart-wrapper">
+            <h2>Average Temperature (Next 24-hour)</h2>
+            <canvas id="forecastChart"></canvas>
+        </div>
+
+        <p id="forecastMessage"></p>
+
+        <button class="back-btn" onclick="window.location.href='index.html'">
+            ← Back to Weather
+        </button>
+    </div>
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Our forecast logic -->
+    <script src="forecast.js"></script>
+</body>
+
+</html>

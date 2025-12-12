@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Weather App — Integrated ML Features</title>
+
+  <!-- Leaflet CSS (map) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+  <!-- Chart.js for microclimate chart -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="bg-blob bg-blob-1"></div>
+  <div class="bg-blob bg-blob-2"></div>
+
+  <div class="container">
+    <div class="top-bar">
+      <div class="title-block">
+        <h1 id="app-title">Weather App</h1>
+        <p class="subtitle">Real-time Weather • AQI • AI Features</p>
+      </div>
+
+      <div class="lang-toggle">
+        <button id="btn-lang-en" data-lang="en" class="active">EN</button>
+        <button id="btn-lang-hi" data-lang="hi">HI</button>
+      </div>
+    </div>
+
+    <div class="search-card glass">
+      <form id="weather-form" class="search-form">
+        <div class="input-wrapper">
+          <span class="input-icon">🏙️</span>
+          <input id="city-name" type="text" placeholder="Enter your city name" />
+        </div>
+        <input type="submit" value="Get weather" />
+      </form>
+
+      <button id="voiceSearch" class="btn-voice">🎤 Voice Search</button>
+    </div>
+
+    <div class="main-grid">
+      <div class="panel glass weather-summary">
+        <div class="weather-header">
+          <div class="icon"></div>
+          <div>
+            <div class="temp"></div>
+            <div class="desc"></div>
+          </div>
+        </div>
+
+        <div class="details">
+          <!-- details inserted by JS -->
+        </div>
+
+        <div id="recommendations" class="recommendations"></div>
+
+        <!-- ML Alert area (existing ML alert) -->
+        <div id="ml-alert" class="ml-alert"></div>
+
+        <!-- NEW: Mood prediction summary -->
+        <div class="panel-mini glass mini-block">
+          <h3>Mood Prediction</h3>
+          <div id="mood-block" class="mini-content">
+            <div id="moodIcon" class="moodIcon">🙂</div>
+            <div>
+              <div id="moodLabel">—</div>
+              <div id="moodConfidence" class="muted">Confidence: —</div>
+            </div>
+            <div style="margin-top:8px" id="moodSuggestionsMini" class="muted"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="panel glass side-panel">
+        <div class="side-header">
+          <h2>Location Map</h2>
+          <p class="side-subtitle">Pinpoint your city</p>
+        </div>
+        <div id="map"></div>
+
+        <div class="forecast-link"><a href="forecast.html">View 24 hours Forecast →</a></div>
+
+        <!-- Micro-Climate predictor UI -->
+        <div class="panel-mini glass mini-block" style="margin-top:12px">
+          <h3>Micro-Climate (next 6h)</h3>
+          <div class="mini-content">
+            <div class="chart-wrap">
+
+
+
+              <canvas id="micro-chart" style="width:100%;height:160px"></canvas>
+            </div>
+            <div id="micro-explain" class="muted" style="margin-top:8px;font-size:0.9rem"></div>
+          </div>
+        </div>
+
+        <!-- Disease Risk predictor UI -->
+        <div class="panel-mini glass mini-block" style="margin-top:12px">
+          <h3>Respiratory Risk</h3>
+          <div class="mini-content">
+            <select id="risk-group">
+              <option value="general">General</option>
+              <option value="asthma">Asthma</option>
+              <option value="elderly">Elderly</option>
+            </select>
+            <div style="margin-top:8px">
+              <div>Risk: <span id="risk-level">—</span></div>
+              <div class="muted" id="risk-score">Score: —</div>
+            </div>
+            <div id="risk-advice" style="margin-top:8px" class="muted"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Leaflet JS (map) -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
